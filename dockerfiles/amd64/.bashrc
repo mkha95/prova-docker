@@ -57,16 +57,16 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -115,51 +115,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export PATH=$PATH:~/bin
-export PATH=$PATH:~/bin/bin
-export PATH=$PATH:/home/moaad/.config/coc/extensions/node_modules/coc-clangd
-export PATH=$PATH:/u/m/mkhamlic/OpenFOAM/mkhamlic-v2106/platforms/linux64GccDPInt32Opt/bin/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/u/m/mkhamlic/bin/lib
-alias vi=vim
-alias apc='cd ~/Apc/MySolutions/'
-alias sol='cd ~/Apc/CODICI\ SOLUZIONI/'
-alias mk='simpleFoam > log &'
-alias plot='paste mu_samples_mat.txt sampled_field_mat.txt> result.dat; echo "plot \"result.dat\" u 1:2 w lp lw 2"| gnuplot -p'
-alias sc="source ~/.bashrc"
-alias open="xdg-open"
-alias thesis="cd ~/Documenti/master_thesis/fsi_bifurcation/leaflets/bifurcation/solutions"
-alias svk="cd ~/Documenti/master_thesis/fsi_bifurcation/leaflets/SVK_model"
-alias rigid="cd ~/Documenti/master_thesis/fsi_bifurcation/leaflets/bifurcation/utilities/rigid_body"
-alias clean='rm -r POD; rm -r offline; cp -r utilities/POD .; cp -r utilities/offline .;'
-alias vimrc='vim ~/.config/nvim/init.vim'
-alias tex='cd ~/Documenti/master_thesis/tex; vi main.tex'
-alias bolo='/scratch/mkhamlic/ITHACA-FV/projects/bologna_case/Data_Driven_method/Meteo_data/'
-alias paper='cd ~/Scaricati/paper_KHAMLICH_PICHI/paper_FSI; main'
-alias p='python3 '
-alias off='cp -r ~/Documenti/master_thesis/fsi_bifurcation/leaflets/bifurcation/solutions/2.5/solutions/bifurcation_fsi/offline .;'
-alias mail='vi mail.tex'
-alias foam='module use /u/m/mathlab/packages/modules ; module load libtorch muq openfoam/2106'
-alias ithaca='cd /scratch/mkhamlic/ITHACA-FV'
-alias bashrc='vim ~/.bashrc'
-
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/u/m/mathlab/packages/install/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/u/m/mathlab/packages/install/miniconda3/etc/profile.d/conda.sh " ]; then
-        . "/u/m/mathlab/packages/install/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/u/m/mathlab.packages/install/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-shopt -s autocd
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/u/m/mkhamlic/OpenFOAM/mkhamlic-v2106/platforms/linux64GccDPInt32Opt/lib
 
 # Show git branch name
 force_color_prompt=yes
@@ -168,15 +123,12 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
  }
 if [ "$color_prompt" = yes ]; then
-      PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
+      PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
 else
-       PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+       PS1='${debian_chroot:+($debian_chroot)}\u:\w$(parse_git_branch)\$ '
 fi
 unset color_prompt force_color_prompt
-alias hamilton='ssh -X mkhamlic@hamilton'
-alias acta='cd ~/Documents/ACTA; main'
-
-
-source /scratch/mkhamlic/ITHACA-FV/etc/bashrc
-foam
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source /usr/lib/openfoam/openfoam2106/etc/bashrc
+source /usr/lib/ITHACA-FV/etc/bashrc
+shopt -s autocd
+bind 'set completion-ignore-case on'
