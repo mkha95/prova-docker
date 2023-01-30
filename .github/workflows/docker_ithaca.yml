@@ -52,7 +52,7 @@ jobs:
       - name: Build
         run: docker build --no-cache  -t moaadkhamlich/ithacafv:manifest-amd64 -f ./dockerfiles/amd64/Dockerfile .
       - name: Push
-        run: docker push moaadkhamlich/ithacafv:manifestamd64
+        run: docker push moaadkhamlich/ithacafv:manifest-amd64
 
 
 
